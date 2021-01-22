@@ -8,13 +8,13 @@ if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
 class AzureMediaStorage(AzureStorage):
-    account_name = os.environ["AZURE_ACCOUNT_NAME"]
-    account_key = os.environ["AZURE_ACCOUNT_KEY"]
+    account_name = os.environ["AZURE_ACCOUNTNAME"]
+    account_key = os.environ["AZURE_ACCOUNTKEY"]
     azure_container = 'media'
     expiration_secs = None
 
 class AzureStaticStorage(AzureStorage):
-    account_name = os.environ["AZURE_ACCOUNT_NAME"]
-    account_key = os.environ["AZURE_ACCOUNT_KEY"]
+    account_name = os.environ["AZURE_ACCOUNTNAME"]
+    account_key = os.environ["AZURE_ACCOUNTKEY"]
     azure_container = 'static'
     expiration_secs = None

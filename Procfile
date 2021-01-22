@@ -1,1 +1,1 @@
-web: gunicorn tmfc.wsgi --log-file -
+web: gunicorn TMFC.wsgi --log-file -
