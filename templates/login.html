@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="us-en">
+    {% load static %}
+    <head>
+        <title>TMFC Admin</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1/css/bootstrap.min.css' %}"/>
+    </head>
+    <body>
+        <style>
+            .form_div{
+                width: 50%;
+                max-width: 500px;
+                margin: 30vh auto 0 auto;
+                border: 2px solid #363636e1;
+                border-radius: 20px;
+                padding: 30px;
+                color: #363636e1; 
+            }
+            .form_div input{
+                border-radius: 20px;
+            }
+            .login-btn{
+                padding: 10px 0 10px 0;
+                background-color: #363636e1;
+                color: whitesmoke;
+                border: 2px solid;  
+            }
+            .login-btn:hover{
+                background-color: #1d1c1ce1;
+                outline: none !important;
+                font-weight: bold;
+            }
+        </style>
+        <div class="form_div">
+            <h2 class="text-center">Login to continue</h2>
+            {% load widget_tweaks %}
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger login-error">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                {% for error in form.username.errors %}
+                    <p class="alert alert-danger">{{ error }}</p>
+                {% endfor %}
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {% render_field form.username class="form-control" %}
+                </div>
+                {% for error in form.password.errors %}
+                    <p class="alert alert-danger">{{ error }}</p>
+                {% endfor %}
+                <div class="form-group">
+                    {{ form.password.label_tag }}
+                    {% render_field form.password class="form-control" %}
+                </div>
+                <input type="submit" name="login" value="Login" class="login-btn w-100"/>
+            </form>
+            <p class="text-center mt-3">&copy;TMFC 2021. All rights reserved.</p>
+        </div>
+    </body>
+</html>

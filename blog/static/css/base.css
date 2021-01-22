@@ -1,0 +1,253 @@
+body, .container-fluid{
+    margin: 0;  
+    background-color: #fdfdd1de;
+    font-family: "Noto Serif", 'Times New Roman', sans-serif;
+}
+
+#others{
+    min-height: Calc(100vh - 20px);
+}
+
+.tmfc_logo{
+    width: 150px;
+}
+
+.site-footer{
+    background:#1d1d1d;
+}
+
+.site-footer a{
+    text-decoration:none;
+	font-weight:bold;
+	color:rgba(255,255,255,0.7);
+}
+
+.site-footer a:hover {
+	color:#fff;
+}
+
+/*Customize icons*/
+.socialheader .fa:hover{
+    color: blue !important;
+    text-decoration: none;
+}
+
+/* .clearfix:before,.clearfix:after {
+	content:" ";
+	display:table;
+}
+.clearfix:after {
+	clear:both;
+}
+.clearfix {
+	zoom: 1;
+} */
+
+.main-nav{
+    background:#1d1d1df1;
+}
+
+.main-nav nav{
+    margin-top: 10px;
+}
+
+.main-nav nav li{
+    list-style-type: none;
+    display: inline;
+    padding: 0 3px 0 3px;
+}
+
+.main-nav nav a {
+	text-decoration:none;
+	font-size:0.9em;
+	letter-spacing:0.3px;
+	font-weight:400;
+	color:#ccc;
+}
+.main-nav nav .nav-current a {
+	color:#fff;
+}
+.main-nav nav a:hover {
+    color: #fff;
+    font-weight: bold;
+}
+
+.row .main-header{
+    background-image: url('/static/img/intro.jpg');
+    height: 100vh;
+    background-size: cover;
+    color: #FFFFFF !important;
+}
+
+.row .main-header > a{
+    position: absolute;
+    top: 60vh;
+    left: 50vw;
+    color: #ececec;
+}
+
+.row .main-header > a:hover{
+    color: #1d1d1d;
+    text-decoration: none;
+}
+
+.row header{
+    margin-left: 20%;
+}
+
+.row header .page-title{
+    font-family: "Playfair Display";
+    font-size:4rem;
+	letter-spacing:-1px;
+}
+
+.pagination{
+    font-family: "Berkshire Swash", Cursive;
+}
+
+.row .main-header-content{
+    margin-top: 18%;
+}
+
+main{
+    width: 90vw;
+    max-width: 1200px;
+    background-color: #ffffffe5;
+}
+main .row .col .cover-img{
+    /* position: relative;
+    margin-top: -100px; */
+    z-index: 3;
+    display: none;
+}
+
+main .row article{
+    padding: 10px;
+    margin: 1px;
+}
+
+.post-meta {
+    font-family: "Playfair Display", sans-serif;
+	display:block;
+	margin:1.2rem 0 0 0;
+	font-size: 0.9rem;
+	font-style:italic;
+	line-height:2.2rem;
+	color:#9EABB3;
+}
+
+.post-excerpt, .post-content, .blog-content{
+    color: #363636e1;
+}
+
+.sub-title{
+    font-size: 1.5rem;
+    font-style: italic;
+    text-indent: 100px;
+}
+
+.page-title {
+	-webkit-animation:fade-in 0.6s;
+	animation:fade-in 0.6s;
+	-webkit-animation-delay:0.2s;
+	animation-delay:0.2s;
+}
+.page-description {
+	-webkit-animation:fade-in-down 0.9s;
+	animation:fade-in-down 0.9s;
+	-webkit-animation-delay:0.1s;
+	animation-delay: 0.1s;
+}
+
+.read_next .post-content{
+    color: #ececec;
+}
+
+.post-header{
+    font-family: 'Playfair Display', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.post-header a{
+    padding-left: unset !important;
+    color: #363636e1;
+    font-style: italic;
+}
+
+.post-header a:hover{
+    text-decoration: none;
+}
+
+.author-thumb{
+    border-radius: 50%;
+    width: 30px;
+}
+
+.pagination .nested{
+    width: 30%;
+    display: inline-block;
+    text-align: center;
+}
+
+.pagination .nested a{
+    color:  #363636e1;
+}
+
+.pagination .nested span.text-muted{
+    color:  #a09b9be1 !important;
+}
+
+.pagination .nested a:hover{
+    color: #1d1c1ce1;
+    font-weight: bold;
+}
+
+.contact{
+    width: 50vw;
+    margin: 0 auto 0 auto;
+}
+
+.read_next a{
+    color: #ececec;
+}
+.read_next a:hover, .read-more:hover, .nested a:hover{
+    text-decoration: none;
+}
+
+.read_next p{
+    width: 100px;
+    margin: 0 auto 0 auto;
+    color: #ececec;
+    padding: 3px 8px 3px 8px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #ececec;
+}
+
+.read_next .post-content{
+    line-height: 1.8em;
+}
+
+.hovered_post{     /*Activated when post in read_next section is hovered*/
+    background-color: #ececec;
+    color: black !important;
+}
+
+.page-number{
+    line-height: 60px;
+}
+
+@media screen and (max-width: 700px){
+    .main-nav nav li{
+        display: block;
+    }
+
+    .main-nav.overlay {
+		position:relative;
+		height:3px;
+    }
+    
+    .row .main-header{
+        height: 60vh;
+        margin-top: unset;
+    }
+}

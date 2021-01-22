@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<title>TMFC - Spreading the light of the gospel</title>
+		<meta name="description" content="insipiring writeups about the gospel"/>
+		<meta name='viewport' content='width=device-width,initial-scale=1,shrink-to-fit=no'>
+        <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1/css/bootstrap.min.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,400italic,700,700italic|Playfair+Display:400,700,400italic,700italic"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Lato&family=Noto+Serif&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <body>
+		<div class="container-fluid">
+            <div id="others">
+                <div class="row main-nav sticky-top py-3">
+                    <div class="col-3">
+                        <a class="blog-logo" href="{% url 'home' %}">
+                            <img src="{% static 'img/logo_tmfc.png' %}" class="pl-5 tmfc_logo" alt="TMFC logo"/>
+                        </a>
+                    </div>
+                    <div class="col justify-self-center">
+                        <button class="d-block d-sm-none float-right pr-2 menu-btn">Menu</button>
+                        <nav id="main_nav" data-current="{{ current }}" class="d-none d-sm-block overlay">
+                            <ul id="menu">
+                                <li class="home nav-current" role="presentation"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="collections" role="presentation"><a href="{% url 'home' %}">Our Collections</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li class="dashboard" role="presentation"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                                {% endif %}
+                                <li class="contact" role="presentation"><a href="{% url 'contact' %}">Contact Us</a></li>
+                                <li class="about" role="presentation"><a href="{% url 'about' %}">About Us</a></li>
+                                <li class="author" role="presentation"><a href="{% url 'author' %}">Author Page</a></li>
+                                <span class="socialheader float-right pr-2">
+                                    <a href="#" class="fa fa-2x fa-facebook pr-3"></a>
+                                    <a href="#" class="fa fa-2x fa-twitter pr-3"></a>
+                                    <a href="mailto:jerrycul2001@gmail.com" class="fa fa-envelope pr-3"></a>
+                                </span>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                {% block content %}
+                
+                {% endblock %}
+            </div>
+            
+            <div class="row justify-content-center">
+                <style>
+                    #back-to-top a{
+                        position: absolute;
+                        top: 90vh;
+                        left: 50vw;
+                    }
+                </style>
+
+                <div class="col site-footer">
+                    <!-- <a href="#top" id="back-to-top" class="back-top">&uarr;jg</a> -->
+                    <footer class=" clearfix">
+                        <div class="text-center p-3">
+                            <a href="{% url 'home' %}">&copy; 2021 TMFC - Spreading the light of the gospel.</a>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+            
+        </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/msonry.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jqery.fitvids.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+        {% block extra_scripts %}
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col main-header">
+        <header>
+            <div class="main-header-content">
+                <h1 class="page-title">{{blog.title}}</h1>
+                <div class="entry-title-divider">
+                    <span></span><span></span><span></span>
+                </div>
+                <h4 class="sub-title">Spreading the light - James3:4</h4>
+                <section class="post-meta">
+                <time class="post-date" datetime="{{blog.date}}">{{blog.date}}</time> | <a class="scrolltocomments" href="#disqus_thread">Comments</a>
+                </section>
+            </div>
+        </header>
+        <a class="d-none d-sm-block fa fa-angle-double-down fa-5x" href="#content" data-offset="-45"></a>
+    </div>
+</div>
+
+<main id="content" class="w-md-75 p-3 pt-5 mx-auto" role="main">
+    <article class="post featured">
+        <div class="row">
+            <div class="col-12">
+                <section class="post-content">
+                    <div class="text-justify">{{blog.content}}</div>
+                    
+                    <p>
+                        One day my employer decided to send me as a spy to find out the prices of fish 
+                        and fish food at a competitive fish shop. I tried to behave like a casual customer 
+                        and walked coolly into the competitor’s shop and gradually began to ask the prices of 
+                        fish and fish food. After I had found out what was needed I bought a pair of cheap Black 
+                        Mollies from his shop just to show him that I was a genuine customer. From the information I 
+                        got, we found Ashok’s to be comparatively cheaper than the competitor.
+                    </p>
+                    <p>
+                        <em>During this period I improved my knowledge about aquarium fish tremendously. This was mainly 
+                            due to two things. Firstly, I had spent a lot of time observing the fish at Ashok’s shop and 
+                            getting practical experience from the places we visited.</em>
+                    </p>
+                    <p>
+                        <strong>Secondly, I had been reading the fish books that my father bought for me as a gift for getting 
+                            a distinction in my SSC exam. The books were quite expensive but well worth the cost. Being able 
+                            to get theoretical knowledge and practical experience at the same time gave me a lot of confidence 
+                            with regard to aquarium fish.</strong>
+                    </p>
+                    <p>
+                        One of the important highlights of my experience at Ashok’s was learning to make fish tanks. Ashok told 
+                        me that since we were going through a slack period, he would teach me how to make fish tanks. I had to 
+                        start from basics which meant purchasing glass for six tanks, having the glass pieces cut to specifications 
+                        and then having the pieces delivered at the shop without a scratch.
+                    </p>
+                </section>
+            </div>
+            <div class="col-12 col-sm-6">
+                <section class="author d-inline">
+                    <h6>Writen By: {{blog.author}} -- TMFC</h6>
+                </section>
+            </div>
+            <div class="col-12 col-sm-6">
+                <style>
+                    .share{
+                        text-align: right;
+                    }
+                    .share a{
+                        color: #363636e1;
+                        margin-right: 10px;
+                    }
+                </style>
+                <section class="float-right share socialheader">
+                    <h6>Share this post</h6>
+                    <a class="fa fa-twitter" href="https://twitter.com/intent/tweet?text=Once%20Upon%20a%20Time&amp;url=#" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"></a>
+                    <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=#" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"></a>
+                </section>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div id="disqus_thread"></div>
+                <script>
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                    
+                    var disqus_config = function () {
+                    this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = window.location.hostname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://tmfc.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </article>
+</main>
+<div class="clearfix"></div>
+<div class="row p-5 bg-dark read_next">
+    {% for blog in top_two %}
+    <div class="col mt-4">
+        <p class="text-center d-none d-md-block">read next</p>
+        <section class="post">
+            <a href="{% url 'article' blog.title %}">
+                <h2 class="post-title">{{blog.title}}</h2>
+                <div class="post-content">{{blog.content}}</div>
+            </a>
+        </section>
+        
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

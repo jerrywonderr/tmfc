@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        {% for error in post_form.non_field_errors %}
+        <p class="alert alert-dangeer">{{error}}</p>
+        {% endfor %}
+    </div>
+</div>
+<main id="content" class="w-md-75 p-3 pt-5 mx-auto" role="main">
+    <div class="row">
+        <div class="col">
+            <form id="post-form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {% for error in post_form.title.errors %}
+                        <p class="alert alert-danger">{{error}}</p>
+                    {% endfor %}
+                    {{ post_form.title.label_tag }}
+                    {% render_field post_form.title class="form-control" %}
+                </div>
+                <div class="form-group">
+                    {% for error in post_form.author.errors %}
+                        <p class="alert alert-danger">{{error}}</p>
+                    {% endfor %}
+                    {{ post_form.author.label_tag }}
+                    {% render_field post_form.author class="form-control" %}
+                </div>
+                <div class="form-group">
+                    <p class="alert alert-info">NOTE: content field cannot be left empty and click on text in content field to start typing</p>
+                    {{ post_form.content.label_tag }}
+                    {% for error in post_form.content.errors %}
+                        <p class="alert alert-danger">{{error}}</p>
+                    {% endfor %}
+                    <div id="toolbar"></div>
+                    <div id="editor">{{post_form.content.value}}</div>
+                    {% render_field post_form.content class="form-control" hidden="hidden" %}
+                </div>
+                <div class="w-50 d-inline"><button class="btn btn-danger btn-md back-btn">Back</button></div>
+                <div class="w-50 d-inline"><button id="modify-post" role="button" class="btn btn-md btn-success float-right mr-5">Save</button></div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/decoupled-document/ckeditor.js"></script>
+<script>
+    $(document).ready(function(){
+        let editor;
+
+        DecoupledEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( new_editor => {
+            const toolbarContainer = document.querySelector( '#toolbar' );
+            toolbarContainer.appendChild( new_editor.ui.view.toolbar.element );
+            editor = new_editor
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+        $("#modify-post").on("click", function(e){
+            e.preventDefault();
+            //I can't make it (form validation) work using jQuery so i have to fallback to plain js
+            let form_div = document.querySelector('#post-form');
+            $("#id_content").val(editor.getData());
+            if(!form_div.checkValidity()){
+                form_div.reportValidity();
+            }else{
+                $(form_div).submit();
+                console.log("submitted");
+            }
+        });
+    });
+    
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col main-header">
+        <header>
+            <div class="main-header-content">
+                <h1 class="page-title">Contact Us @ TMFC</h1>
+                <div class="entry-title-divider">
+                    <span></span><span></span><span></span>
+                </div>
+                <h5 class="sub-title">Spreading the light of the gospel.</h5>
+            </div>
+        </header>
+        <a class="d-none d-sm-block fa fa-angle-double-down fa-5x" href="#content" data-offset="-45"></a>
+    </div>
+</div>
+<main id="content" class="content mx-auto p-3 pt-5" role="main">
+	<article class="post tag-fashion tag-art page">
+        <div class="row">
+            <div class="col-12">
+                <section>
+                    <h5>You can contact us, anytime, anywhere</h5>
+                </section>
+            </div>
+            <div class="col">
+                <section class="post-content">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                    {% if form %}
+                    <form class="contact" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {% for error in form.email.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                            {{form.email.label_tag}}
+                            {% render_field form.email class="form-control" %}
+                        </div>
+                        <div class="form-group">
+                            {% for error in form.content.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                            {{form.content.label_tag}}
+                            {% render_field form.content class="form-control" %}
+                        </div>
+                        <input type="submit" class="btn btn-success btn-md px-5 float-right" value="Send">
+                    </form>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+	</article>
+</main>
+{% endblock %}
