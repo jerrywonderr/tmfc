@@ -40,7 +40,6 @@ DEBUG = os.getenv('DJANGO_DEBUG', "True") == "True"
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOST", "127.0.0.1,localhost").split(",")
-print(ALLOWED_HOSTS)
 
 # Application definition
 
@@ -53,10 +52,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "blog",
     "widget_tweaks",
+    "storages",
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -145,8 +144,18 @@ STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
 STATIC_ROOT = BASE_DIR / "static"
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+#AZURE SETTINGS
+DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
+STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
+
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+AZURE_ACCOUNT_NAME = os.environ["AZURE_ACCOUNT_NAME"]
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 
 
