@@ -11,7 +11,7 @@
                     </div>
                     <div class="col">
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'logout' %}" class="btn btn-md btn-danger float-right mt-3 mr-5">Logout</a>
+                            <a href="{% url 'logout' %}" class="btn btn-md btn-danger float-right mt-3 mr-2">Logout</a>
                         {% endif %}
                     </div>
                 </div>
@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 d-none">
         <div class="row">
             <div class="col">
                 <input type="search" placeholder="Type what comes to mind" class="float-right mr-2">
@@ -41,22 +41,22 @@
     <div class="col-12">
         <div class="row my-2">
             <div class="col-6">
-                <h1>My Posts</h1>
+                <h2>All Posts</h2>
             </div>
             <div class="col-6">
-                <a href="{% url 'modify-post' action='new' %}" class="btn btn-md btn-outline-primary float-right mr-5">Add New Post</a>
+                <a href="{% url 'modify-post' action='new' %}" class="btn btn-md btn-outline-primary float-right mr-2">Add New Post</a>
             </div>
             <div class="col-12">
                 {% for blog in page_obj %}
-                <div class="row my-3 p-3 post-content">
+                <div class="row my-2 post-content">
                     <div class="col-12 mb-2">
                         <h5>{{blog.title|upper}}</h5>
-                        <div class="blog-content">
+                        <div class="text-justify mb-2 blog-content">
                             {{blog.content}}
                             <a href="{% url 'article' blog.title %}">view...</a>
                         </div>
-                        <a href="{% url 'modify-post' action='modify' %}?title={{blog.title}}" class="btn btn-md btn-primary float-right mr-5">Edit</a>
-                        <a href="{% url 'delete-post' %}?title={{blog.title}}" class="btn btn-md btn-danger float-right mr-5">Delete</a>
+                        <a href="{% url 'modify-post' action='modify' %}?title={{blog.title}}" class="btn btn-md btn-primary float-right px-3 mr-5 edit-btn">Edit</a>
+                        <a href="{% url 'delete-post' %}?title={{blog.title}}" class="btn btn-md btn-danger float-right px-3 mr-5 delete-btn">Delete</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -68,24 +68,24 @@
         <nav class="pagination" role="navigation">
             <div class="nested"> 
                 {% if page_obj.has_previous %}  
-                    <a class="d-block newer-posts" href="?page={{page_obj.previous_page_number}}">Newer Posts</a>
+                    <a class="d-block newer-posts" href="?page={{page_obj.previous_page_number}}">Newer<span class="d-none d-sm-inline"> Posts</span></a>
                 {% else %}
-                    <span class="d-block text-muted newer-posts"> Newer Posts</span>
+                    <span class="d-block text-muted newer-posts">Newer<span class="d-none d-sm-inline"> Posts</span></span>
                 {% endif %}
                 <span>&larr;</span>
-                <a href="?page=1" class="d-block">First Page </a>
+                <a href="?page=1" class="d-block">First<span class="d-none d-sm-inline"> Page</span></a>
             </div>
             <div class="nested">
-                <span class="page-number">Page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}</span>
+                <span class="page-number"><span class="d-none d-sm-inline">Page </span>{{page_obj.number}} of {{ page_obj.paginator.num_pages }}</span>
             </div>
             <div class="nested">
                 {% if page_obj.has_next %}
-                    <a class="d-block older-posts" href="?page={{page_obj.next_page_number}}">Older Posts</a>
+                    <a class="d-block older-posts" href="?page={{page_obj.next_page_number}}">Older<span class="d-none d-sm-inline"> Posts</span></a>
                 {% else %}
-                    <span class="d-block text-muted older-posts">Older Posts</span>
+                    <span class="d-block text-muted older-posts">Older<span class="d-none d-sm-inline"> Posts</span></span>
                 {% endif %}
                 <span>&rarr;</span>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="d-block">Last Page</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="d-block">Last<span class="d-none d-sm-inline"> Page</span></a>
             </div>
         </nav>
     </div>

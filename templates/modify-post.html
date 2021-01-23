@@ -29,7 +29,7 @@
                     {% render_field post_form.author class="form-control" %}
                 </div>
                 <div class="form-group">
-                    <p class="alert alert-info">NOTE: content field cannot be left empty and click on text in content field to start typing</p>
+                    <p class="alert alert-info">NOTE: content field cannot be left empty, click on text in content field to start typing</p>
                     {{ post_form.content.label_tag }}
                     {% for error in post_form.content.errors %}
                         <p class="alert alert-danger">{{error}}</p>
@@ -38,8 +38,8 @@
                     <div id="editor">{{post_form.content.value}}</div>
                     {% render_field post_form.content class="form-control" hidden="hidden" %}
                 </div>
-                <div class="w-50 d-inline"><button class="btn btn-danger btn-md back-btn">Back</button></div>
-                <div class="w-50 d-inline"><button id="modify-post" role="button" class="btn btn-md btn-success float-right mr-5">Save</button></div>
+                <div class="w-50 d-inline"><button class="btn btn-danger btn-md px-3 back-btn">Back</button></div>
+                <div class="w-50 d-inline"><button id="modify-post" role="button" class="btn btn-md btn-success float-right mr-5 px-3">Save</button></div>
             </form>
         </div>
     </div>
@@ -76,6 +76,5 @@
             }
         });
     });
-    
 </script>
 {% endblock %}

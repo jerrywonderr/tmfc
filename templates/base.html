@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="en">
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -20,12 +20,14 @@
                 <div class="row main-nav sticky-top py-3">
                     <div class="col-3">
                         <a class="blog-logo" href="{% url 'home' %}">
-                            <img src="{% static 'img/logo_tmfc.png' %}" class="pl-5 tmfc_logo" alt="TMFC logo"/>
+                            <img src="{% static 'img/logo_tmfc.png' %}" class="pl-3 tmfc_logo" alt="TMFC logo"/>
                         </a>
                     </div>
-                    <div class="col justify-self-center">
-                        <button class="d-block d-sm-none float-right pr-2 menu-btn">Menu</button>
-                        <nav id="main_nav" data-current="{{ current }}" class="d-none d-sm-block overlay">
+                    <div class="col d-block d-sm-none">
+                        <button class="float-right pr-2 menu-btn">Menu</button>
+                    </div>
+                    <div class="col d-none d-sm-block justify-self-center">
+                        <nav id="main_nav" data-current="{{ current }}">
                             <ul id="menu">
                                 <li class="home nav-current" role="presentation"><a href="{% url 'home' %}">Home</a></li>
                                 <li class="collections" role="presentation"><a href="{% url 'home' %}">Our Collections</a></li>
@@ -34,11 +36,11 @@
                                 {% endif %}
                                 <li class="contact" role="presentation"><a href="{% url 'contact' %}">Contact Us</a></li>
                                 <li class="about" role="presentation"><a href="{% url 'about' %}">About Us</a></li>
-                                <li class="author" role="presentation"><a href="{% url 'author' %}">Author Page</a></li>
+                                <li class="d-none author" role="presentation"><a href="{% url 'author' %}">Author Page</a></li>
                                 <span class="socialheader float-right pr-2">
-                                    <a href="#" class="fa fa-2x fa-facebook pr-3"></a>
-                                    <a href="#" class="fa fa-2x fa-twitter pr-3"></a>
-                                    <a href="mailto:jerrycul2001@gmail.com" class="fa fa-envelope pr-3"></a>
+                                    <a href="#" class="fa fa-2x fa-facebook pr-3">d</a>
+                                    <a href="#" class="fa fa-2x fa-twitter pr-3">d</a>
+                                    <a href="mailto:jerrycul2001@gmail.com" class="fa fa-envelope pr-3">d</a>
                                 </span>
                             </ul>
                         </nav>

@@ -61,7 +61,7 @@ def article(request, title):
     blog = Blog_Post.objects.get(title=title)
     top_two = Blog_Post.objects.exclude(title=title).order_by("likes")[:2]
     for post in top_two:
-        post.content = format_html(clean_html(unescape(post.content[:500])))
+        post.content = format_html(clean_html(unescape(post.content[:200])))
     blog.content = format_html(unescape(blog.content))
     context["blog"] = blog
     context["top_two"] = top_two

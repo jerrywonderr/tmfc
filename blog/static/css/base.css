@@ -9,7 +9,8 @@ body, .container-fluid{
 }
 
 .tmfc_logo{
-    width: 150px;
+    width: 20vw;
+    max-width: 150px;
 }
 
 .site-footer{
@@ -31,17 +32,6 @@ body, .container-fluid{
     color: blue !important;
     text-decoration: none;
 }
-
-/* .clearfix:before,.clearfix:after {
-	content:" ";
-	display:table;
-}
-.clearfix:after {
-	clear:both;
-}
-.clearfix {
-	zoom: 1;
-} */
 
 .main-nav{
     background:#1d1d1df1;
@@ -68,7 +58,7 @@ body, .container-fluid{
 	color:#fff;
 }
 .main-nav nav a:hover {
-    color: #fff;
+    color: rgb(237, 253, 13);
     font-weight: bold;
 }
 
@@ -138,6 +128,10 @@ main .row article{
 
 .post-excerpt, .post-content, .blog-content{
     color: #363636e1;
+}
+
+.post-content h5{
+    font-weight: bold;
 }
 
 .sub-title{
@@ -237,17 +231,38 @@ main .row article{
 }
 
 @media screen and (max-width: 700px){
-    .main-nav nav li{
-        display: block;
+    .tmfc_logo, .main_nav nav{
+        padding: unset !important;
     }
-
-    .main-nav.overlay {
-		position:relative;
-		height:3px;
+    .socialheader{
+        padding-top: 10px;
     }
-    
+    .main-nav nav li a{
+        position:relative;
+        width: 100%;
+        display:block;
+        text-align: left;
+        border-bottom: 2px solid rgb(230, 230, 38);
+        
+    }
     .row .main-header{
         height: 60vh;
         margin-top: unset;
     }
+    .contd-read{
+        text-decoration: underline;
+        font-style: italic;
+        font-weight: 200;
+        color: rgb(194, 194, 44);
+    }
+    .contact{
+        width: 100%;
+    }
+    .delete-btn, .edit-btn{
+        margin-right: unset !important;
+    }
+    .delete-btn{
+        float: left !important;
+    }
+
 }

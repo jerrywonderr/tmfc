@@ -7,14 +7,15 @@ $(document).ready(function(){
             for(nav_item of nav_items){
                 if($(nav_item).hasClass(current)){
                     $(".nav-current").removeClass("nav-current");
-                    $(nav_item).addClass("nav-current");
+                    $(nav_item).addClass("navcurrent");
                 }
             }
         }
     });
 
     $(".menu-btn").click(function(){
-        $(".main-nav nav").toggleClass("d-none");
+        let fd = $(".main-nav nav").parent();
+        fd.toggleClass("d-none").toggleClass("col-12");
     });
     $(".back-btn").click(function(){
         window.history.back()
