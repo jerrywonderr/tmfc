@@ -58,7 +58,7 @@ body, .container-fluid{
 	color:#fff;
 }
 .main-nav nav a:hover {
-    color: rgb(237, 253, 13);
+    color: rgb(230, 230, 38);
     font-weight: bold;
 }
 
@@ -231,6 +231,10 @@ main .row article{
 }
 
 @media screen and (max-width: 700px){
+    .menu-btn{
+        background-color: rgb(230, 230, 84);
+        border-color: rgb(230, 230, 38);
+    }
     .tmfc_logo, .main_nav nav{
         padding: unset !important;
     }
