@@ -30,7 +30,7 @@
                         <nav id="main_nav" data-current="{{ current }}">
                             <ul id="menu">
                                 <li class="home nav-current" role="presentation"><a href="{% url 'home' %}">Home</a></li>
-                                <li class="collections" role="presentation"><a href="{% url 'home' %}">Our Collections</a></li>
+                                <li class="collections" role="presentation"><a href="{% url 'collection' %}">Our Collections</a></li>
                                 {% if request.user.is_authenticated %}
                                     <li class="dashboard" role="presentation"><a href="{% url 'dashboard' %}">Dashboard</a></li>
                                 {% endif %}

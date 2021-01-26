@@ -4,6 +4,18 @@ body, .container-fluid{
     font-family: "Noto Serif", 'Times New Roman', sans-serif;
 }
 
+.apply-color{
+    color: #363636e1;
+}
+
+.text-white{
+    color: white;
+}
+
+.size-fill{
+    min-height: 90vh;
+}
+
 #others{
     min-height: Calc(100vh - 20px);
 }
@@ -29,7 +41,7 @@ body, .container-fluid{
 
 /*Customize icons*/
 .socialheader .fa:hover{
-    color: blue !important;
+    color: rgb(26, 197, 240) !important;
     text-decoration: none;
 }
 
@@ -48,55 +60,83 @@ body, .container-fluid{
 }
 
 .main-nav nav a {
+    white-space: nowrap;
 	text-decoration:none;
 	font-size:0.9em;
-	letter-spacing:0.3px;
-	font-weight:400;
+    letter-spacing:0.3px;
+    padding-right: 30px;
+    font-weight:400;
+    font-size:larger;
 	color:#ccc;
 }
 .main-nav nav .nav-current a {
-	color:#fff;
+    color: rgb(230, 230, 38);
+    font-weight: bold;
 }
 .main-nav nav a:hover {
     color: rgb(230, 230, 38);
     font-weight: bold;
 }
 
-.row .main-header{
-    background-image: url('/static/img/intro.jpg');
-    height: 100vh;
+.bg-change{
+    background-image: url('/static/img/second-intro.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
+}
+
+.index-bg{
+    background-image: url('/static/img/intro.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-header{
+    height: 90vh;
     color: #FFFFFF !important;
 }
 
-.row .main-header > a{
+.header-btn > a{
     position: absolute;
     top: 60vh;
-    left: 50vw;
     color: #ececec;
+    font-size: 2rem;
+    padding: 12px 20px 12px 20px;
+    margin-right: 100px;
+    font-style: italic;
+    border-bottom: 6px solid;
+    border-radius: 30px;
+    background-color: #302f22;
 }
 
-.row .main-header > a:hover{
-    color: #1d1d1d;
+.header-article{
+    left: 10vw;
+}
+.header-more{
+    left: 70vw;
+}
+
+.header-btn > a:hover{
+    top: 58vh;
+    color: rgb(194, 194, 44);
+    font-size: 2.5rem;
     text-decoration: none;
 }
 
-.row header{
-    margin-left: 20%;
-}
-
-.row header .page-title{
+.page-title{
+    padding-top: 10vh;
     font-family: "Playfair Display";
     font-size:4rem;
-	letter-spacing:-1px;
+    letter-spacing:-3px;
+    word-spacing: -3px;
+    text-transform: capitalize;
+}
+
+.post-full-header{
+    padding: 50px;
 }
 
 .pagination{
     font-family: "Berkshire Swash", Cursive;
-}
-
-.row .main-header-content{
-    margin-top: 18%;
 }
 
 main{
@@ -104,20 +144,23 @@ main{
     max-width: 1200px;
     background-color: #ffffffe5;
 }
-main .row .col .cover-img{
+main .col .cover-img{
     /* position: relative;
     margin-top: -100px; */
     z-index: 3;
     display: none;
 }
 
-main .row article{
+main article{
     padding: 10px;
     margin: 1px;
 }
 
-.post-meta {
+.post-date, .post-meta{
     font-family: "Playfair Display", sans-serif;
+}
+
+.post-meta {
 	display:block;
 	margin:1.2rem 0 0 0;
 	font-size: 0.9rem;
@@ -126,8 +169,12 @@ main .row article{
 	color:#9EABB3;
 }
 
-.post-excerpt, .post-content, .blog-content{
-    color: #363636e1;
+.scrolltocomments{
+    color: white;
+}
+
+.scrolltocomments:hover{
+    color:rgb(230, 230, 38);
 }
 
 .post-content h5{
@@ -157,18 +204,21 @@ main .row article{
     color: #ececec;
 }
 
-.post-header{
+.post-header, .heading{
     font-family: 'Playfair Display', Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.post-header a{
-    padding-left: unset !important;
-    color: #363636e1;
+.post-header a, .heading{
+    color: rgb(219, 44, 44);
     font-style: italic;
 }
 
 .post-header a:hover{
     text-decoration: none;
+}
+
+.author{
+    font-weight: bold;
 }
 
 .author-thumb{
@@ -193,11 +243,6 @@ main .row article{
 .pagination .nested a:hover{
     color: #1d1c1ce1;
     font-weight: bold;
-}
-
-.contact{
-    width: 50vw;
-    margin: 0 auto 0 auto;
 }
 
 .read_next a{
@@ -230,6 +275,24 @@ main .row article{
     line-height: 60px;
 }
 
+.contact{
+    max-width: 50vw;
+    min-width: 300px;
+}
+
+.contact label{
+    color: #ececec;
+}
+
+.contact input[type=email], .contact textarea{
+    background-color:rgba(250, 252, 252, 0.986)
+}
+
+.general-img img{
+    width: 100%;
+    border-radius: 20px;
+}
+
 @media screen and (max-width: 700px){
     .menu-btn{
         background-color: rgb(230, 230, 84);
@@ -241,23 +304,71 @@ main .row article{
     .socialheader{
         padding-top: 10px;
     }
+    .socialheader .fa{
+        color: rgb(26, 197, 240) !important;
+    }
     .main-nav nav li a{
         position:relative;
         width: 100%;
         display:block;
         text-align: left;
-        border-bottom: 2px solid rgb(230, 230, 38);
+        font-size: 1em;
+        border-bottom: 2px solid rgb(230, 230, 38);  
+    }
+    .nav-current{
+        font-size:1.1em;
+    }
+    .main-header{
+        height: 65vh;
+        margin-top: unset;
+    }
+    .post-full-header{
+        text-align: left;
+        padding-left: unset !important;
+        padding-right: unset !important;
+    }
+    .post-meta{
+        text-align: right;
+    }
+    .scrolltocomments{
+        text-decoration: underline;
+        color:rgb(230, 230, 38);
+    }
+    .page-title{
+        text-align: center;
+        font-size: 3rem;
+        word-spacing: 5px;
+        padding-top: 3vh;
+    }
+    .sub-title{
+        text-indent: unset !important;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .header-btn{
+        width: 100%;
+        margin-top: 20vh;
+        margin-left: 25vw;
+    }
+    .header-btn > a{
+        font-size: 1.5rem;
+        position: relative;
+        top: unset;
+        left: unset;
+        word-spacing: -3px;
+        color: rgb(194, 194, 44);
+    }
+    .header-btn > a:hover{
+        border-bottom-style: inset;
         
     }
-    .row .main-header{
-        height: 60vh;
-        margin-top: unset;
+    .contd-read, .read-more{
+        color: rgb(194, 194, 44);
     }
     .contd-read{
         text-decoration: underline;
         font-style: italic;
         font-weight: 200;
-        color: rgb(194, 194, 44);
     }
     .contact{
         width: 100%;

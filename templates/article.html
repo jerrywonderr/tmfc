@@ -1,21 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="row">
-    <div class="col main-header">
-        <header>
-            <div class="main-header-content">
-                <h1 class="page-title">{{blog.title}}</h1>
-                <div class="entry-title-divider">
-                    <span></span><span></span><span></span>
-                </div>
-                <h4 class="sub-title">Spreading the light - James3:4</h4>
-                <section class="post-meta">
-                <time class="post-date" datetime="{{blog.date}}">{{blog.date}}</time> | <a class="scrolltocomments" href="#disqus_thread">Comments</a>
-                </section>
+<div class="row bg-change text-white post-full-header">
+    <div class="col">
+        <div class="main-header-content">
+            <h1 class="page-title">{{blog.title}}</h1>
+            <h4 class="sub-title">Spreading the light - James3:4</h4>
+            <div class="post-meta text-white">
+            <time class="post-date" datetime="{{blog.date}}">{{blog.date}}</time> | <a class="scrolltocomments" href="#disqus_thread">View Comments</a>
             </div>
-        </header>
-        <a class="d-none d-sm-block fa fa-angle-double-down fa-5x" href="#content" data-offset="-45"></a>
+        </div>
     </div>
 </div>
 
@@ -23,7 +17,7 @@
     <article class="post featured">
         <div class="row">
             <div class="col-12">
-                <section class="post-content">
+                <section class="apply-color post-content">
                     <div class="text-justify">{{blog.content}}</div>
                     
                     <p>
@@ -53,8 +47,8 @@
                     </p>
                 </section>
             </div>
-            <div class="col-12 col-sm-6">
-                <section class="author d-inline">
+            <div class="col-12 col-sm-6 apply-color">
+                <section class="author">
                     <h6>Writen By: {{blog.author}} -- TMFC</h6>
                 </section>
             </div>
@@ -68,7 +62,7 @@
                         margin-right: 10px;
                     }
                 </style>
-                <section class="float-right share socialheader">
+                <section class="float-right apply-color share socialheader">
                     <h6>Share this post</h6>
                     <a class="fa fa-twitter" href="https://twitter.com/intent/tweet?text=Once%20Upon%20a%20Time&amp;url=#" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"></a>
                     <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=#" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"></a>
@@ -84,8 +78,8 @@
                     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
                     
                     var disqus_config = function () {
-                    this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
-                    this.page.identifier = window.location.hostname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+                        this.page.identifier = window.location.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                     };
                     
                     (function() { // DON'T EDIT BELOW THIS LINE
@@ -101,17 +95,16 @@
     </article>
 </main>
 <div class="clearfix"></div>
-<div class="row p-5 bg-dark read_next">
+<div class="row py-4 bg-dark read_next">
     {% for blog in top_two %}
-    <div class="col mt-4">
+    <div class="col-12 col-sm-6 px-5 mb-2">
         <p class="text-center d-none d-md-block">read next</p>
         <section class="post">
             <a href="{% url 'article' blog.title %}">
                 <h2 class="post-title">{{blog.title}}</h2>
                 <div class="post-content text-justify">{{blog.content}}... <span class="d-sm-none contd-read">continue reading</span></div>
             </a>
-        </section>
-        
+        </section> 
     </div>
     {% endfor %}
 </div>

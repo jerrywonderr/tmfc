@@ -6,10 +6,11 @@ from .models import Blog_Post
 from .forms import MessageForm, BlogPostForm
 from html import unescape, escape
 from django.utils.html import format_html
-import re
+import re, requests
 
 #Helper functions
 def clean_html(text):
+    '''Helps to strip unclosed html tags from blog post'''
     # text = str(m_text)
     md = re.compile(r"^(</.+?>).*$")    #This searches a text for the last closing tag, and groups it
     mo = re.compile(r".+(</.+?>.*)$") #This searches a text and picks up all text after the last closing tag, closing teg inclusive
@@ -28,6 +29,10 @@ def clean_html(text):
 # Create your views here.
 def home(request):
     context = {}
+    return render(request, "index.html", context)
+
+def collection(request):
+    context = {}
     blogs = Blog_Post.objects.all().order_by("-date")
     for field in blogs:
         field.content = format_html(clean_html(unescape(field.content[:500])))
@@ -35,11 +40,12 @@ def home(request):
     page_num = request.GET.get("page")
     page_obj = blog_paginator.get_page(page_num)
     context["page_obj"] = page_obj
-    return render(request, "index.html", context)
+    context["current"] = "collections"      #This is simply for the functionality of the navigation bar
+    return render(request, "collections.html", context)
 
 def about(request):
     context = {}
-    context["current"] = "about"
+    context["current"] = "about"      #This is simply for the functionality of the navigation bar
     return render(request, "about.html", context)
 
 def contact(request):
@@ -53,27 +59,25 @@ def contact(request):
             form = MessageForm()    #To clear previous data away from field
 
     context["form"] = form
-    context["current"] = "contact"
+    context["current"] = "contact"      #This is simply for the functionality of the navigation bar
     return render(request, "contact.html", context)
     
 def article(request, title):
     context = {}
+    req = "https://disqus.com/api/3.0/threads/details.json"
     blog = Blog_Post.objects.get(title=title)
     top_two = Blog_Post.objects.exclude(title=title).order_by("likes")[:2]
     for post in top_two:
-        post.content = format_html(clean_html(unescape(post.content[:200])))
+        post.content = format_html(clean_html(unescape(post.content[:350])))
     blog.content = format_html(unescape(blog.content))
     context["blog"] = blog
     context["top_two"] = top_two
+    context["current"] = "collections"      #This is simply for the functionality of the navigation bar
     return render(request, "article.html", context)
 
 def author(request):
     context = {}
     return render(request, "author.html", context)
-
-def page_two(request):
-    context = {}
-    return render(request, "page2.html", context)
 
 @login_required(redirect_field_name="next", login_url="/login/")
 def dashboard(request):
@@ -85,7 +89,7 @@ def dashboard(request):
     page_num = request.GET.get("page")
     blog_obj = blog_paginator.get_page(page_num)
     context["page_obj"] = blog_obj
-    context["current"] = "dashboard"
+    context["current"] = "dashboard"      #This is simply for the functionality of the navigation bar
     return render(request, "dashboard.html", context)
 
 def delete_post(request):
@@ -119,7 +123,7 @@ def modify_post(request, action):
             return redirect("dashboard")
     
     context["post_form"] = blog_post
-    context["current"] = "dashboard"
+    context["current"] = "dashboard"      #This is simply for the functionality of the navigation bar
     return render(request, "modify-post.html", context)
         
 

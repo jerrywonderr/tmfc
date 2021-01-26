@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<main id="content" class="content mx-auto p-3" role="main">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="heading apply-color">Some articles you could check out</h2>
+        </div>
+        {% for blog in page_obj %}
+        <div class="col-12 col-sm-6 col-lg-4 p-3">
+            <article class="post">
+                <div class="post-header">
+                    <h2 class="post-title"><a href="{% url 'article' blog.title %}">{{blog.title}}</a></h2>
+                </div>
+                <section class="apply-color post-excerpt">
+                    <div class="text-justify">
+                        {{blog.content}}
+                        <a class="read-more" href="{% url 'article' blog.title %}">
+                            <span class="d-sm-none contd-read">continue reading </span>&raquo;
+                        </a>
+                    </div>
+                </section>
+                <footer class="text-muted apply-color post-meta">
+                    <img class="author-thumb" src="{% static 'img/gravatar.jpg' %}" alt="David" nopin="nopin"/>
+                    <span>{{blog.author}}</span> &nbsp;| &nbsp;
+                    <time class="post-date" datetime="{{blog.date}}">{{blog.date}}</time>
+                </footer>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-12">
+        <nav class="pagination" role="navigation">
+            <div class="nested"> 
+                {% if page_obj.has_previous %}  
+                    <a class="d-block newer-posts" href="?page={{page_obj.previous_page_number}}">Newer<span class="d-none d-sm-inline"> Posts</span></a>
+                {% else %}
+                    <span class="d-block text-muted newer-posts">Newer<span class="d-none d-sm-inline"> Posts</span></span>
+                {% endif %}
+                <span>&larr;</span>
+                <a href="?page=1" class="d-block">First<span class="d-none d-sm-inline"> Page</span></a>
+            </div>
+            <div class="nested">
+                <span class="page-number"><span class="d-none d-sm-inline">Page </span>{{page_obj.number}} of {{ page_obj.paginator.num_pages }}</span>
+            </div>
+            <div class="nested">
+                {% if page_obj.has_next %}
+                    <a class="d-block older-posts" href="?page={{page_obj.next_page_number}}">Older<span class="d-none d-sm-inline"> Posts</span></a>
+                {% else %}
+                    <span class="d-block text-muted older-posts">Older<span class="d-none d-sm-inline"> Posts</span></span>
+                {% endif %}
+                <span>&rarr;</span>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="d-block">Last<span class="d-none d-sm-inline"> Page</span></a>
+            </div>
+        </nav>
+    </div>
+</main>
+{% endblock %}
