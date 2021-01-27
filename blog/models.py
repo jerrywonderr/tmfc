@@ -4,6 +4,7 @@ from django.db import models
 
 class Blog_Post(models.Model):
     title = models.CharField(max_length=40, null=True, unique=True)
+    sub_title = models.CharField(max_length=300, null=True)
     content = models.TextField(max_length=5000, null=True, default="Click to start typing")
     author = models.CharField(max_length=100, default="Anonymous")
     likes = models.IntegerField(null=True, blank=True)

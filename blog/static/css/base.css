@@ -39,6 +39,13 @@ body, .container-fluid{
 	color:#fff;
 }
 
+.read-next{
+    text-align: justify;
+    border-radius: 10px;
+    background-color: #a39d6fc5;
+    color:rgba(255, 255, 255, 0.856);
+}
+
 /*Customize icons*/
 .socialheader .fa:hover{
     color: rgb(26, 197, 240) !important;
@@ -200,10 +207,6 @@ main article{
 	animation-delay: 0.1s;
 }
 
-.read_next .post-content{
-    color: #ececec;
-}
-
 .post-header, .heading{
     font-family: 'Playfair Display', Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -245,13 +248,6 @@ main article{
     font-weight: bold;
 }
 
-.read_next a{
-    color: #ececec;
-}
-.read_next a:hover, .read-more:hover, .nested a:hover{
-    text-decoration: none;
-}
-
 .read_next p{
     width: 100px;
     margin: 0 auto 0 auto;
@@ -262,13 +258,20 @@ main article{
     border: 2px solid #ececec;
 }
 
-.read_next .post-content{
-    line-height: 1.8em;
-}
-
-.hovered_post{     /*Activated when post in read_next section is hovered*/
+.hovered-post{     /*Activated when post in read_next section is hovered*/
+    color: rgb(48, 48, 8);
+    width: 100%;
+    text-align:center;
+    margin-left: -1em;
     background-color: #ececec;
-    color: black !important;
+    font-weight: bolder;
+    font-size: 1em;
+    white-space: nowrap;
+    position: absolute;
+    font-style: italic;
+    border: 2px solid;
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .page-number{
@@ -288,12 +291,25 @@ main article{
     background-color:rgba(250, 252, 252, 0.986)
 }
 
-.general-img img{
-    width: 100%;
+.index-section img{
+    width: 45vw;
     border-radius: 20px;
 }
 
-@media screen and (max-width: 700px){
+.wedo-img{
+    margin-left: 20px;
+}
+
+.mission-img{
+    margin-right: 20px;
+}
+
+.index-section{
+    padding: 1em;
+}
+
+
+@media screen and (max-width: 1000px){
     .menu-btn{
         background-color: rgb(230, 230, 84);
         border-color: rgb(230, 230, 38);
@@ -346,9 +362,8 @@ main article{
         font-size: 1.2rem;
     }
     .header-btn{
-        width: 100%;
-        margin-top: 20vh;
-        margin-left: 25vw;
+        margin-top: 3em;
+        margin-left: unset;
     }
     .header-btn > a{
         font-size: 1.5rem;
@@ -366,6 +381,8 @@ main article{
         color: rgb(194, 194, 44);
     }
     .contd-read{
+        color: rgba(240, 226, 40, 0.61);
+        display:inline;
         text-decoration: underline;
         font-style: italic;
         font-weight: 200;
@@ -378,6 +395,11 @@ main article{
     }
     .delete-btn{
         float: left !important;
+    }
+
+    .header-article{
+        position: relative;
+        white-space: nowrap;
     }
 
 }

@@ -10,20 +10,16 @@ import re, requests
 
 #Helper functions
 def clean_html(text):
-    '''Helps to strip unclosed html tags from blog post'''
-    # text = str(m_text)
-    md = re.compile(r"^(</.+?>).*$")    #This searches a text for the last closing tag, and groups it
-    mo = re.compile(r".+(</.+?>.*)$") #This searches a text and picks up all text after the last closing tag, closing teg inclusive
-    f_match = mo.match(text)
-    if (f_match):
-        text = text.replace(f_match.groups()[0], "", 1)    #Removes part of text, from last closing tag to the end
-        match = md.match(f_match.groups()[0])       #this is simply to get the last closing tag
-        if(match):
-            text = text + match.groups()[0]
-            # ne = re.compile(r".+(<.[^ /]+?>.*)")     #Checks if a tag is still open
-            # n_match = ne.match(text)
-            # if(n_match):
-            #     text = re.sub(n_match.groups()[0],"",text)
+    '''Helps to strip all html tags from blog post'''
+    text = text.strip()
+    while True:
+        md = re.compile(r".*(<.+?>).*")    #This searches a text for html tags, and groups it
+        f_match = md.match(text)
+        if (f_match):
+            text = text.replace(f_match.groups()[0], "")    #Removes the matched html tag from text
+        else:
+            #If no html tags found, break loop
+            break
     return text
 
 # Create your views here.
@@ -66,7 +62,7 @@ def article(request, title):
     context = {}
     req = "https://disqus.com/api/3.0/threads/details.json"
     blog = Blog_Post.objects.get(title=title)
-    top_two = Blog_Post.objects.exclude(title=title).order_by("likes")[:2]
+    top_two = Blog_Post.objects.exclude(title=title).order_by("-date", "likes")[:4]
     for post in top_two:
         post.content = format_html(clean_html(unescape(post.content[:350])))
     blog.content = format_html(unescape(blog.content))
@@ -92,6 +88,7 @@ def dashboard(request):
     context["current"] = "dashboard"      #This is simply for the functionality of the navigation bar
     return render(request, "dashboard.html", context)
 
+@login_required(redirect_field_name="next", login_url="/login/")
 def delete_post(request):
     title = request.GET.get("title")
     if(title):
@@ -101,6 +98,7 @@ def delete_post(request):
         messages.success(request, "Error! Please refresh and try again")
     return redirect("dashboard")
 
+@login_required(redirect_field_name="next", login_url="/login/")
 def modify_post(request, action):
     context = {}
     blog_post = BlogPostForm()
@@ -114,13 +112,16 @@ def modify_post(request, action):
     if(request.method == "POST"):
         post_data = request.POST.copy()
         #post_data['content'] = unescape(request.POST.get("content"))
-        if not(blog):
+        if not (blog):
             blog_post = BlogPostForm(post_data)
         else:
             blog_post = BlogPostForm(post_data, instance=blog)
         if(blog_post.is_valid()):
             blog_post.save()
             return redirect("dashboard")
+        else:
+            print("error")
+            print(blog_post.errors)
     
     context["post_form"] = blog_post
     context["current"] = "dashboard"      #This is simply for the functionality of the navigation bar

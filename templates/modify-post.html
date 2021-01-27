@@ -19,18 +19,25 @@
                         <p class="alert alert-danger">{{error}}</p>
                     {% endfor %}
                     {{ post_form.title.label_tag }}
-                    {% render_field post_form.title class="form-control" %}
+                    {% render_field post_form.title placeholder="main title goes here" class="form-control" %}
+                </div>
+                <div class="form-group">
+                    {% for error in post_form.sub_title.errors %}
+                        <p class="alert alert-danger">{{error}}</p>
+                    {% endfor %}
+                    {{ post_form.sub_title.label_tag }}
+                    {% render_field post_form.sub_title placeholder="sub title goes here" class="form-control" %}
                 </div>
                 <div class="form-group">
                     {% for error in post_form.author.errors %}
                         <p class="alert alert-danger">{{error}}</p>
                     {% endfor %}
                     {{ post_form.author.label_tag }}
-                    {% render_field post_form.author class="form-control" %}
+                    {% render_field post_form.author placeholder="author name goes here" class="form-control" %}
                 </div>
                 <div class="form-group">
                     <p class="alert alert-info">NOTE: content field cannot be left empty, click on text in content field to start typing</p>
-                    {{ post_form.content.label_tag }}
+                    {{ post_form.content.label_tag }}'s
                     {% for error in post_form.content.errors %}
                         <p class="alert alert-danger">{{error}}</p>
                     {% endfor %}
@@ -64,15 +71,16 @@
         } );
 
         $("#modify-post").on("click", function(e){
+            console.log("ok");
             e.preventDefault();
             //I can't make it (form validation) work using jQuery so i have to fallback to plain js
-            let form_div = document.querySelector('#post-form');
             $("#id_content").val(editor.getData());
+            let form_div = document.querySelector('#post-form');
             if(!form_div.checkValidity()){
                 form_div.reportValidity();
             }else{
                 $(form_div).submit();
-                console.log("submitted");
+                console.log("submitted yes");
             }
         });
     });

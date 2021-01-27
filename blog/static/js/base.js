@@ -22,11 +22,15 @@ $(document).ready(function(){
     $(".back-btn").click(function(){
         window.history.back()
     });
-    $(".read_next a").on("mouseenter", function(){
-        $(this).parent().parent().find(".text-center").addClass("hovered_post");
+    $(".suggestions").on("mouseenter", function(){
+        $(this).find(".hovered-post").removeClass("d-none")
     });
-    $(".read_next a").on("mouseout", function(){
-        $(this).parent().parent().find(".text-center").removeClass("hovered_post");
+    $(".suggestions").on("mouseleave", function(){
+        $(this).find(".hovered-post").addClass("d-none");
+    });
+    $(".suggestions").click(function(){
+        let title = $(this).attr("data-title");
+        window.location.href = (`/article/${title}`);
     });
     $(".main-headr > a").click(function(){
         console.log(this);
