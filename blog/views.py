@@ -29,7 +29,7 @@ def home(request):
 
 def collection(request):
     context = {}
-    blogs = Blog_Post.objects.all().order_by("-date")
+    blogs = Blog_Post.objects.all().filter(public=True).order_by("-date")
     for field in blogs:
         field.content = format_html(clean_html(unescape(field.content[:500])))
     blog_paginator = Paginator(blogs, 6)

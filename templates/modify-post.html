@@ -36,6 +36,12 @@
                     {% render_field post_form.author placeholder="author name goes here" class="form-control" %}
                 </div>
                 <div class="form-group">
+                    {% for error in post_form.public.errors %}
+                        <p class="alert alert-danger">{{error}}</p>
+                    {% endfor %}
+                    <label for='id_public'>Public now?</label> {% render_field post_form.public class="decentralize" %}
+                </div>
+                <div class="form-group">
                     <p class="alert alert-info">NOTE: content field cannot be left empty, click on text in content field to start typing</p>
                     {{ post_form.content.label_tag }}'s
                     {% for error in post_form.content.errors %}

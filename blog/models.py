@@ -7,6 +7,7 @@ class Blog_Post(models.Model):
     sub_title = models.CharField(max_length=300, null=True)
     content = models.TextField(max_length=5000, null=True, default="Click to start typing")
     author = models.CharField(max_length=100, default="Anonymous")
+    public = models.BooleanField(default=True)
     likes = models.IntegerField(null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
 
