@@ -4,7 +4,7 @@ from .models import Comment, Blog_Post, Message
 # Register your models here.
 @admin.register(Blog_Post)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ['title', 'content', 'author', 'likes', 'date']
+    list_display = ['title', 'content', 'author', 'public', 'likes', 'date']
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
