@@ -65,11 +65,13 @@ body, .container-fluid{
     display: inline;
     padding: 0 3px 0 3px;
 }
+.main-nav nav li a{
+    font-size: normal;
+}
 
 .main-nav nav a {
     white-space: nowrap;
 	text-decoration:none;
-	font-size:0.9em;
     letter-spacing:0.3px;
     padding-right: 30px;
     font-weight:400;
@@ -77,11 +79,11 @@ body, .container-fluid{
 	color:#ccc;
 }
 .main-nav nav .nav-current a {
-    color: rgb(230, 230, 38);
+    color: #EDD63D;
     font-weight: bold;
 }
 .main-nav nav a:hover {
-    color: rgb(230, 230, 38);
+    color: #EDD63D;
     font-weight: bold;
 }
 
@@ -149,7 +151,7 @@ body, .container-fluid{
 main{
     width: 90vw;
     max-width: 1200px;
-    background-color: #ffffffe5;
+    background-color: #f6fafc; /*#def7f5e5;*/
 }
 main .col .cover-img{
     /* position: relative;

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseNotFound
 from .models import Blog_Post
 from .forms import MessageForm, BlogPostForm
 from html import unescape, escape
@@ -62,14 +63,16 @@ def article(request, title):
     context = {}
     req = "https://disqus.com/api/3.0/threads/details.json"
     blog = Blog_Post.objects.get(title=title)
-    top_two = Blog_Post.objects.exclude(title=title).order_by("-date", "likes")[:4]
+    top_two = Blog_Post.objects.exclude(title=title, public=False).order_by("-date", "likes")[:4]
     for post in top_two:
         post.content = format_html(clean_html(unescape(post.content[:350])))
-    blog.content = format_html(unescape(blog.content))
-    context["blog"] = blog
-    context["top_two"] = top_two
-    context["current"] = "collections"      #This is simply for the functionality of the navigation bar
-    return render(request, "article.html", context)
+    if blog.public or request.user.is_staff:
+        blog.content = format_html(unescape(blog.content))
+        context["blog"] = blog
+        context["top_two"] = top_two
+        context["current"] = "collections"      #This is simply for the functionality of the navigation bar
+        return render(request, "article.html", context)
+    return HttpResponseNotFound("Sorry, we couldn't find the post you're searching for.")
 
 def author(request):
     context = {}
