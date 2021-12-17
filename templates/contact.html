@@ -2,39 +2,44 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
-<div class="row bg-change size-fill">
-    <div class="col-12 col-lg-5 text-white">
+<div class="row my-3 g-2">
+    <div class="col-12 col-lg-5 contact-header-div">
         <div>
-            <h1 class="page-title">Contact Us @ TMFC</h1>
-            <h5>You can contact us, anytime, anywhere</h5>
+            <h1 class="my-3 heading">Contact Us @ TMFC</h1>
+            <h5 class="">You can contact us, anytime, anywhere</h5>
         </div>
     </div>
-    <div class="col-12 col-lg-7 pt-5">
-        <div class="col">   
-            {% if form %}
-            <form class="mx-auto contact" method="POST">
-                {% for message in messages %}
-                    <p>{{message}}</p>
+    <div class="col-12 col-lg-7">
+        {% if form %}
+        <form class="mx-auto contact" method="POST">
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+            {% csrf_token %}
+            <div class="form-group mb-2">
+                {% for error in form.email.errors %}
+                    <p class="alert alert-danger">{{ error }}</p>
                 {% endfor %}
-                {% csrf_token %}
-                <div class="form-group">
-                    {% for error in form.email.errors %}
-                        <p class="alert alert-danger">{{ error }}</p>
-                    {% endfor %}
-                    {{form.email.label_tag}}
-                    {% render_field form.email class="form-control" %}
-                </div>
-                <div class="form-group">
-                    {% for error in form.content.errors %}
-                        <p class="alert alert-danger">{{ error }}</p>
-                    {% endfor %}
-                    {{form.content.label_tag}}
-                    {% render_field form.content class="form-control" %}
-                </div>
-                <input type="submit" class="btn btn-success btn-md px-5 float-right" value="Send">
-            </form>
-            {% endif %}
-        </div>
+                {{form.email.label_tag}}
+                {% render_field form.email class="form-control" %}
+            </div>
+            <div class="form-group mb-2">
+                {% for error in form.content.errors %}
+                    <p class="alert alert-danger">{{ error }}</p>
+                {% endfor %}
+                {{form.content.label_tag}}
+                {% render_field form.content class="form-control" %}
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" class="btn btn-success btn-md form-control" value="Send">
+            </div>
+        </form>
+        {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+</style>  
 {% endblock %}

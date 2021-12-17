@@ -2,24 +2,40 @@
 {% load static %}
 {% block content %}
 <div class="row">
-    <div class="col p-3 index-bg main-header index-header">
-        <div class="main-header-content">
+    <div class="col p-3 main-header">
+        <div>
             <h1 class="page-title">the movement for christ</h1>
             <h5 class="sub-title">"We are keen on spreading the light of the gospel."</h5>
-        </div>
-        <div class="header-btn">
-            <a class="header-article" href="{% url 'collection' %}">View Our Articles</a>
-            <a class="d-none d-lg-block header-more" href="#content">Continue</a>
+            <div class="header-btn">
+                <a class="btn action-btn" href="{% url 'collection' %}">View Our Articles</a>
+                <a class="btn d-none d-lg-inline-block action-btn" href="#content">Continue</a>
+                
+            </div>
         </div>
     </div>
 </div>
 <main id="content" class="w-lg-75 mx-auto" role="main">
-    <section class="index-section">
-        <div class="row my-1">
-            <div class="col-12">
-                <h2 class="heading">What we do/ What we stand for</h2>
-                <img src="{% static 'img/wedoimg.jpg' %}" class="float-right wedo-img" alt="What we do">
-                <p class="text-justify apply-color">
+    <section class="container-fluid p-2 index-section">
+        <div class="row align-items-center my-3">
+            <div class="d-block d-lg-none col-12">
+                <h2 class="heading">What we stand for</h2>
+                <img src="{% static 'img/wedoimg.jpg' %}" class="img-fluid wedo-img" alt="What we do">
+                <p class="text-justify mt-2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                    labore et dolore magna aliqua. Feugiat vivamus at augue eget. Mi bibendum neque egestas congue 
+                    quisque egestas. Sit amet consectetur adipiscing elit. Egestas erat imperdiet sed euismod nisi 
+                    porta. Erat nam at lectus urna duis convallis convallis tellus id. Dictum non consectetur a erat 
+                    nam. In ante metus dictum at tempor commodo ullamcorper. Fermentum iaculis eu non diam. 
+                    Consectetur a erat nam at lectus urna. Facilisis sed odio morbi quis commodo odio aenean sed 
+                    adipiscing. Eu facilisis sed odio morbi.
+                </p>
+            </div>
+            <div class="d-none d-lg-block col">
+                <img src="{% static 'img/wedoimg.jpg' %}" class="img-fluid wedo-img" alt="What we do">
+            </div>
+            <div class="d-none d-lg-block col">
+                <h2 class="heading">What we stand for</h2>
+                <p class="text-justify mt-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
                     labore et dolore magna aliqua. Feugiat vivamus at augue eget. Mi bibendum neque egestas congue 
                     quisque egestas. Sit amet consectetur adipiscing elit. Egestas erat imperdiet sed euismod nisi 
@@ -32,11 +48,11 @@
         </div>
     </section>
     <section class="index-section">
-        <div class="row my-1">
-            <div class="col-12">
-                <h2 class="heading mb-2">Our mission statement</h2>
-                <img src="{% static 'img/missionimg.jpg' %}" class="float-left mission-img" alt="Our Mission Statement">
-                <p class="text-justify apply-color">
+        <div class="row align-items-center my-3">
+            <div class="d-block d-lg-none col-12">
+                <h2 class="heading">Our mission statement</h2>
+                <img src="{% static 'img/missionimg.jpg' %}" class="img-fluid mission-img" alt="Our Mission Statement">
+                <p class="text-justify mt-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
                     labore et dolore magna aliqua. Feugiat vivamus at augue eget. Mi bibendum neque egestas congue 
                     quisque egestas. Sit amet consectetur adipiscing elit. Egestas erat imperdiet sed euismod nisi 
@@ -46,13 +62,28 @@
                     adipiscing. Eu facilisis sed odio morbi.
                 </p>
             </div>
+            <div class="d-none d-lg-block col">
+                <h2 class="heading">Our mission statement</h2>
+                <p class="text-justify mt-2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                    labore et dolore magna aliqua. Feugiat vivamus at augue eget. Mi bibendum neque egestas congue 
+                    quisque egestas. Sit amet consectetur adipiscing elit. Egestas erat imperdiet sed euismod nisi 
+                    porta. Erat nam at lectus urna duis convallis convallis tellus id. Dictum non consectetur a erat 
+                    nam. In ante metus dictum at tempor commodo ullamcorper. Fermentum iaculis eu non diam. 
+                    Consectetur a erat nam at lectus urna. Facilisis sed odio morbi quis commodo odio aenean sed 
+                    adipiscing. Eu facilisis sed odio morbi.
+                </p>
+            </div>
+            <div class="d-none d-lg-block col">
+                <img src="{% static 'img/missionimg.jpg' %}" class="img-fluid mission-img" alt="Our Mission Statement">
+            </div>
         </div>
     </section>
     <section class="index-section">
-        <div class="row my-1">
+        <div class="row my-3">
             <div class="col">
                 <h2 class="heading">How it works</h2>
-                <ul class="apply-color">
+                <ul class="">
                     <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</li>
                     <li>labore et dolore magna aliqua. Feugiat vivamus at augue eget. Mi bibendum neque egestas congue </li>
                     <li>quisque egestas. Sit amet consectetur adipiscing elit. Egestas erat imperdiet sed euismod nisi </li>

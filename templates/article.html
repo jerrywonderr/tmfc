@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="row bg-change text-white post-full-header">
+<div class="row bg-change mb-3 post-full-header">
     <div class="col">
-        <div class="main-header-content">
-            <h1 class="page-title">{{blog.title}}</h1>
+        <div class="article-header">
+            <h1 class="page-title mb-0 mt-1">{{blog.title}}</h1>
             <h4 class="sub-title">Spreading the light - James3:4</h4>
-            <div class="post-meta text-white">
-            <time class="post-date" datetime="{{blog.date}}">{{blog.date}}</time> | <a class="scrolltocomments" href="#disqus_thread">View Comments</a>
+            <div class="article-meta">
+                <time class="post-date" datetime="{{blog.date}}">{{blog.date}}</time> | <a class="scrolltocomments" href="#disqus_thread">View Comments</a>
             </div>
         </div>
     </div>
 </div>
 
 <main id="content" class="w-lg-75 mx-auto" role="main">
-    <article class="post featured">
+    <article class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col artice-post">
                 <div class="row">
-                    <div class="col-12">
-                        <section class="apply-color post-content">
+                    <div class="col-12 p-0">
+                        <section class="post-content">
                             <div class="text-justify">{{blog.content}}</div>
                             <p>
                                 One day my employer decided to send me as a spy to find out the prices of fish 
@@ -32,13 +32,15 @@
                             <p>
                                 <em>During this period I improved my knowledge about aquarium fish tremendously. This was mainly 
                                     due to two things. Firstly, I had spent a lot of time observing the fish at Ashok’s shop and 
-                                    getting practical experience from the places we visited.</em>
+                                    getting practical experience from the places we visited.
+                                </em>
                             </p>
                             <p>
                                 <strong>Secondly, I had been reading the fish books that my father bought for me as a gift for getting 
                                     a distinction in my SSC exam. The books were quite expensive but well worth the cost. Being able 
                                     to get theoretical knowledge and practical experience at the same time gave me a lot of confidence 
-                                    with regard to aquarium fish.</strong>
+                                    with regard to aquarium fish.
+                                </strong>
                             </p>
                             <p>
                                 One of the important highlights of my experience at Ashok’s was learning to make fish tanks. Ashok told 
@@ -48,7 +50,7 @@
                             </p>
                         </section>
                     </div>
-                    <div class="col-12 col-lg-6 apply-color">
+                    <div class="col-12 col-lg-6 p-0">
                         <section class="author">
                             <h6>Writen By: {{blog.author}} -- TMFC</h6>
                         </section>
@@ -63,13 +65,13 @@
                                 margin-right: 10px;
                             }
                         </style>
-                        <section class="float-right apply-color share socialheader">
+                        <section class="float-right share socialheader">
                             <h6>Share this post</h6>
                             <a class="fa fa-twitter" href="https://twitter.com/intent/tweet?text=Once%20Upon%20a%20Time&amp;url=#" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"></a>
                             <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=#" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"></a>
                         </section>
                     </div>
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div id="disqus_thread"></div>
                         <script>
                             /**
@@ -89,23 +91,41 @@
                             })();
                         </script>
                         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                    </div>
+                    </div>-->
                 </div>
             </div>
-            <div class="col-12 col-lg-4 py-3 read-next">
-                <div class="row">
-                    <h3 class="post-title m-2">Suggestions</h3>
+            <div class="col-12 col-lg-4 py-3 mb-3 read-next">
+                <div class="g-2 row">
+                    <div class="col-12">
+                        <h3 class="post-title m-2">Suggestions</h3>
+                    </div>
                     {% for blog in top_two %}
                     <div data-title="{{ blog.title }}" class="col-12 col-lg-12 py-3 suggestions">
                         <p class="text-center d-none hovered-post">Just tap to read</p>
-                        <div class='group'>
+                        <section class="mb-3 post-excerpt">
+                            <div class="">
+                                <h2 class="mb-3 post-header"><a href="{% url 'article' blog.title %}">{{blog.title}}</a></h2>
+                                <div class="text-justify">
+                                    {{blog.sub_title}}
+                                    <a class="read-more" href="{% url 'article' blog.title %}">
+                                        <span class="d-sm-none contd-read">continue reading </span>&raquo;
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="mb-2 post-meta">
+                            <img class="author-thumb" src="{% static 'img/gravatar.jpg' %}" alt="David" nopin="nopin"/>
+                            <span>{{blog.author}}</span> &nbsp;| &nbsp;
+                            <time class="post-date" datetime="{{blog.date}}">{{blog.date}}</time>
+                        </footer>
+                        <!-- <div class='group'>
                             <h2 class="post-title">{{blog.title}}</h2>
                             <p class="text-justify">
                                 {{blog.content}}... 
                                 <span class="d-lg-none contd-read">continue reading</span>
                                 <span class="float-right pl-3 author">Author: {{blog.author}}</span>
                             </p>
-                        </div>
+                        </div> -->
                     </div>
                     {% endfor %}
                 </div>

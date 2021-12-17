@@ -2,7 +2,8 @@ from django.db import models
 
 # Create your models here.
 
-class Blog_Post(models.Model):
+
+class BlogPost(models.Model):
     title = models.CharField(max_length=40, null=True, unique=True)
     sub_title = models.CharField(max_length=300, null=True)
     content = models.TextField(max_length=5000, null=True, default="Click to start typing")
@@ -14,10 +15,12 @@ class Blog_Post(models.Model):
     def __str__(self) -> str:
         return "{} by {}".format(self.title, self.author)
 
+
 class Comment(models.Model):
-    blog_post = models.ForeignKey(Blog_Post, on_delete=models.CASCADE, null=True)
+    blog_post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, null=True)
     text = models.CharField(max_length=500, null=True)
     date = models.DateTimeField(auto_now_add=True)
+
 
 class Message(models.Model):
     email = models.EmailField(max_length=50, null=True)
