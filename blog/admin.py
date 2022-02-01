@@ -10,10 +10,10 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['blog_post', 'text']
+    list_display = ['blog_post', 'comment']
 
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ['email', 'content']
+    list_display = ['email', 'message']
 

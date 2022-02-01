@@ -2,39 +2,47 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
-<div class="row my-3 g-2">
-    <div class="col-12 col-lg-5 contact-header-div">
-        <div>
-            <h1 class="my-3 heading">Contact Us @ TMFC</h1>
-            <h5 class="">You can contact us, anytime, anywhere</h5>
+<div class="contact-div">
+    <div class="container-fluid my-4 my-md-0 ">
+        <div class="row">
+            <div class="col-12 col-md-5 mr-md-2 contact-header-div">
+                <div class="text-align-right">
+                    <h1 class="heading">Contact Us @ TMFC</h1>
+                    <h5 class="">You can contact us, anytime, and from anywhere.</h5>
+                    <p class="bible-excerpt">
+                        &#8220Now this is eternal life, that they may know You, the only TRUE God, and Jesus Christ, whom You have sent.&#8221
+                    </p>
+                    <p class="push-note">Join us in fulfilling this mandate.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-7">
+                {% if form %}
+                <form class="mx-auto contact-form" method="POST">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                    {% csrf_token %}
+                    <div class="form-group mb-2">
+                        {% for error in form.email.errors %}
+                            <p class="alert alert-danger">{{ error }}</p>
+                        {% endfor %}
+                        {{form.email.label_tag}}
+                        {% render_field form.email class="form-control" %}
+                    </div>
+                    <div class="form-group mb-2">
+                        {% for error in form.content.errors %}
+                            <p class="alert alert-danger">{{ error }}</p>
+                        {% endfor %}
+                        {{form.message.label_tag}}
+                        {% render_field form.message class="form-control" %}
+                    </div>
+                    <div class="form-group mb-2">
+                        <input type="submit" class="btn btn-success btn-md form-control" value="Send">
+                    </div>
+                </form>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    <div class="col-12 col-lg-7">
-        {% if form %}
-        <form class="mx-auto contact" method="POST">
-            {% for message in messages %}
-                <p>{{message}}</p>
-            {% endfor %}
-            {% csrf_token %}
-            <div class="form-group mb-2">
-                {% for error in form.email.errors %}
-                    <p class="alert alert-danger">{{ error }}</p>
-                {% endfor %}
-                {{form.email.label_tag}}
-                {% render_field form.email class="form-control" %}
-            </div>
-            <div class="form-group mb-2">
-                {% for error in form.content.errors %}
-                    <p class="alert alert-danger">{{ error }}</p>
-                {% endfor %}
-                {{form.content.label_tag}}
-                {% render_field form.content class="form-control" %}
-            </div>
-            <div class="form-group mb-2">
-                <input type="submit" class="btn btn-success btn-md form-control" value="Send">
-            </div>
-        </form>
-        {% endif %}
     </div>
 </div>
 {% endblock %}

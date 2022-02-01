@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound
-from .models import BlogPost
-from .forms import MessageForm, BlogPostForm
+from .models import BlogPost, Comment
+from .forms import CommentForm, MessageForm, BlogPostForm
 from html import unescape
 from django.utils.html import format_html
 import re
@@ -66,8 +66,18 @@ def contact(request):
 
 def article(request, title):
     context = {}
-    req = "https://disqus.com/api/3.0/threads/details.json"
+    # req = "https://disqus.com/api/3.0/threads/details.json"
     blog = BlogPost.objects.get(title=title)
+    comment_form = CommentForm(instance=Comment(blog_post=blog, comment=""))
+    if request.method.lower() == "post":    # This will handle saving comments on the article
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid:
+            comment_form.save()
+            comment_form = CommentForm(instance=Comment(blog_post=blog, comment=""))    # This is simply to clear the comment form
+            messages.success(request, 'Comment submitted for review')
+
+    context['comment_form'] = comment_form
+
     top_two = BlogPost.objects.exclude(title=title, public=False).order_by("-date", "likes")[:4]
     for post in top_two:
         post.content = format_html(clean_html(unescape(post.content[:350])))
@@ -138,3 +148,24 @@ def modify_post(request, action):
     context["post_form"] = blog_post
     context["current"] = "dashboard"      # This is simply for the functionality of the navigation bar
     return render(request, "modify-post.html", context)
+
+
+def add_comment(request, title):
+    if request.method.lower() == "post":
+        comment = CommentForm(request.POST)
+        if comment.is_valid:
+            comment.save()
+            messages.success(request, 'Comment submitted for review')
+    context = {}
+    req = "https://disqus.com/api/3.0/threads/details.json"
+    blog = BlogPost.objects.get(title=title)
+    top_two = BlogPost.objects.exclude(title=title, public=False).order_by("-date", "likes")[:4]
+    for post in top_two:
+        post.content = format_html(clean_html(unescape(post.content[:350])))
+    if blog.public or request.user.is_staff:
+        blog.content = format_html(unescape(blog.content))
+        context["blog"] = blog
+        context["top_two"] = top_two
+        context["current"] = "collections"      # This is simply for the functionality of the navigation bar
+        return render(request, "article.html", context)
+    return HttpResponseNotFound("Sorry, we couldn't find the post you're searching for.")

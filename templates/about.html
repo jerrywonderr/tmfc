@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<main id="content" class="content mx-auto p-3 pt-5" role="main">
-	<article class="post tag-fashion tag-art page">
+<main id="content" class="content mx-auto p-1 mt-4" role="main">
+	<article class="tag-fashion tag-art page">
         <div class="row">
             <div class="col">
                 <section class="post-content text-justify">
+                    <h2 class="heading">How It All Started</h2>
                     <p>
                         <strong>The blog combining journalist David's years of experience covering fashion and culture for among others. Read my blog and you will learn how to become a fashion editor.</strong>
                     </p>
@@ -15,6 +16,9 @@
                     <p>
                         Suspended from the walls of the room were numerous coarse engravings, highly coloured with green, blue, and crimson paints, representing the Virgin Mary, and many of the saints. These engravings are held in great veneration by the devout Catholics of this country. In the corners of the room were two comfortable-looking beds, with clean white sheets and pillow-cases, a sight with which my eyes have not been greeted for many months.
                     </p>
+                </section>
+                <section class="post-content text-justify">
+                    <h2 class="heading">Where We Are Now</h2>
                     <p>
                         Mr. Livermore has been a resident of California nearly thirty years, and, having married into one of the wealthy families of the country, is the proprietor of some of the best lands for tillage and grazing. An arroyo, or small rivulet fed by springs, runs through his rancho, in such a course that, if expedient, he could, without much expense, irrigate one or two thousand acres. Irrigation in this part of California, however, seems to be entirely unnecessary for the production of wheat or any of the small grains. To produce maize, potatoes, and garden vegetables, irrigation is indispensable. Mr. Livermore has on his rancho about 3500 head of cattle. His horses, during the late disturbances, have nearly all been driven off or stolen by the Indians.
                     </p>
@@ -26,4 +30,58 @@
         </div>
 	</article>
 </main>
+<div class="mb-4 d-flex justify-content-center align-items-center">
+    <section class="container-fluid members-section">
+        <div class="row justify-content-center">
+            <div class="col col-12 col-sm-6 d-flex align-items-center justify-content-center">
+                <div class="member-img">
+                    <img src="{% static 'img/logo.png' %}" alt="Joyce Meyers">
+                </div>
+                <div class="member-details">
+                    <p>
+                        <span class="name">Joyce Meyers</span>
+                        <span class="role">Community Leader,</span>
+                        <span class="location">France</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col col-12 col-sm-6 d-flex align-items-center justify-content-center">
+                <div class="member-img">
+                    <img src="{% static 'img/logo.png' %}" alt="Fred Allen">
+                </div>
+                <div class="member-details">
+                    <p>
+                        <span class="name">Fred Allen</span>
+                        <span class="role">Community Leader,</span>
+                        <span class="location">Colorado</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col col-12 col-sm-6 d-flex align-items-center justify-content-center">
+                <div class="member-img">
+                    <img src="{% static 'img/logo.png' %}" alt="Ahmed Khan">
+                </div>
+                <div class="member-details">
+                    <p>
+                        <span class="name">Ahmed Khan</span>
+                        <span class="role">Lead Content Writer,</span>
+                        <span class="location">Bumbay</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col col-12 col-sm-6 d-flex align-items-center justify-content-center">
+                <div class="member-img">
+                    <img src="{% static 'img/logo.png' %}" alt="Bruce Lee">
+                </div>
+                <div class="member-details">
+                    <p>
+                        <span class="name">Bruce Lee</span>
+                        <span class="role">Lead Social Director,</span>
+                        <span class="location">Hong Kong</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}

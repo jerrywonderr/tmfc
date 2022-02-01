@@ -13,25 +13,26 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
-		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,400italic,700,700italic|Playfair+Display:400,700,400italic,700italic"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Lato&family=Noto+Serif&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Acme&family=Dongle:wght@300;700&display=swap" rel="stylesheet">
         {% block extra_styles %}
                 
         {% endblock %}
+    </head>
     <body>
 		<div class="container-fluid">
             <div id="others">
-                <div class="row main-nav sticky-top py-3 align-items-center">
+                <div class="row main-nav sticky-top py-3 py-md-0 align-items-center">
                     <div class="col-3">
                         <a class="blog-logo" href="{% url 'home' %}">
                             <img src="{% static 'img/logo.png' %}" class="pl-3 tmfc_logo" alt="TMFC logo"/>
                         </a>
                     </div>
-                    <div class="col d-block d-lg-none">
+                    <div class="col d-block d-md-none">
                         <button class="float-right pr-2 menu-btn"><i class="fa fa-bars fa-2x"></i></button>
                     </div>
-                    <div class="col d-none d-lg-block d-flex justify-self-center align-items-center pt-3">
+                    <div class="col d-none d-md-block d-flex justify-self-center align-items-center pt-3">
                         <nav id="main_nav" class="main_nav" data-current="{{ current }}">
                             <ul id="menu">
                                 <li class="home nav-current" role="presentation"><a href="{% url 'home' %}">Home</a></li>
@@ -42,11 +43,6 @@
                                 <li class="contact" role="presentation"><a href="{% url 'contact' %}">Contact Us</a></li>
                                 <li class="about" role="presentation"><a href="{% url 'about' %}">About Us</a></li>
                                 <li class="d-none author" role="presentation"><a href="{% url 'author' %}">Author Page</a></li>
-                                <span class="socialheader float-right pr-2">
-                                    <a href="#" class="fa fa-2x fa-facebook pr-3"></a>
-                                    <a href="#" class="fa fa-2x fa-twitter pr-3"></a>
-                                    <a href="mailto:jerrycul2001@gmail.com" class="fa fa-envelope pr-3"></a>
-                                </span>
                             </ul>
                         </nav>
                     </div>
@@ -59,7 +55,17 @@
             
             <div class="row site-footer">
                 <footer class="col text-center d-flex justify-content-center align-items-center p-3">
-                    <p class="m-0">&copy; 2021 TMFC - Spreading the light of the gospel.</p>
+                    <div>
+                        <p class="m-0">&copy;2020 TMFC - Think Christ. Live Christ.</p>
+                        <p class="m-0" style="font-style: italic;">
+                            Follow Us - 
+                            <span class="socialheader">
+                                <a href="#" class="fa fa-facebook pr-3"></a>
+                                <a href="#" class="fa fa-twitter pr-3"></a>
+                                <a href="mailto:jerrycul2001@gmail.com" class="fa fa-envelope pr-3"></a>
+                            </span>
+                        </p>
+                    </div>
                 </footer>
                 <!-- <style>
                     #back-to-top a{

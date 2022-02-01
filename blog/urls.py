@@ -9,6 +9,7 @@ urlpatterns = [
     path("author/", views.author, name="author"),
     path("contact-us/", views.contact, name="contact"),
     path("article/<str:title>/", views.article, name="article"),
+    path("article/comments/<str:title>", views.add_comment, name="comment"),
     path("dashboard/", views.dashboard, name="dashboard"),
     path("dashboard/post/delete/", views.delete_post, name="delete-post"),
     path("dashboard/post/<str:action>/", views.modify_post, name="modify-post"),
