@@ -37,6 +37,7 @@ p, .index-section ul {
 .menu-btn{
     background-color: #ff8d05;
     border-color: #ff8d05;
+    float: right;
 }
 a.blog-logo {
     display: block;
