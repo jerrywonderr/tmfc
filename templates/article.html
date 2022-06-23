@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-12">
                     <section class="post-content">
-                        <p>{{blog.content}}</p>
+                        <p>{{ blog.content }}</p>
                         <p>
                             One day my employer decided to send me as a spy to find out the prices of fish 
                             and fish food at a competitive fish shop. I tried to behave like a casual customer 
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-12 comments">
                     <h2>Comments</h2>
-                    <form method="post">
+                    <form method="post" action="{% url 'comment' blog.title %}">
                         {% csrf_token %}
                         <div class="form-group mb-2">
                             {% for error in comment_form.comment.errors %}

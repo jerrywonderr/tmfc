@@ -32,7 +32,7 @@
         <div class="row">
             {% for message in messages %}
             <div class="col">
-                <p class="alert alert-danger">{{message}}</p>
+                <p class="alert alert-success">{{message}}</p>
             </div>
             {% endfor %}
         </div>
@@ -44,7 +44,7 @@
                 <h2>All Posts</h2>
             </div>
             <div class="col-6">
-                <a href="{% url 'modify-post' action='new' %}" class="btn btn-md btn-outline-primary float-right mr-2">Add New Post</a>
+                <a href="{% url 'admin-article' %}" class="btn btn-md btn-outline-primary float-right mr-2">Add New Post</a>
             </div>
             <div class="col-12">
                 {% for blog in page_obj %}
@@ -52,11 +52,11 @@
                     <div class="col-12 mb-2">
                         <h5>{{blog.title|upper}}</h5>
                         <div class="text-justify mb-2 blog-content">
-                            {{blog.content}}
+                            {{blog.sub_title}}
                             <a href="{% url 'article' blog.title %}">view...</a>
                         </div>
-                        <a href="{% url 'modify-post' action='modify' %}?title={{blog.title}}" class="btn btn-md btn-primary float-right px-3 mr-5 edit-btn">Edit</a>
-                        <a href="{% url 'delete-post' %}?title={{blog.title}}" class="btn btn-md btn-danger float-right px-3 mr-5 delete-btn">Delete</a>
+                        <a href="{% url 'admin-article' %}?title={{blog.title}}" class="btn btn-md btn-primary float-right px-3 mr-5 edit-btn">Edit</a>
+                        <button data-href="{% url 'admin-article' %}?title={{blog.title}}" class="btn btn-md btn-danger float-right px-3 mr-5 delete-btn">Delete</button>
                     </div>
                 </div>
                 {% endfor %}
@@ -93,4 +93,5 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<script type="text/javascript" src="{% static 'js/cookies.js' %}"></script>
 {% endblock %}

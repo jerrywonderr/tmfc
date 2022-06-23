@@ -1,17 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic import View, TemplateView
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseNotFound
+from django.http import Http404, JsonResponse
 from .models import BlogPost, Comment
 from .forms import CommentForm, MessageForm, BlogPostForm
-from html import unescape
+from html import unescape, escape
 from django.utils.html import format_html
 import re
 
 
 # Helper functions
-def clean_html(text):
+def cleans_html(text):
     """Helps to strip all html tags from blog post"""
     text = text.strip()
     while True:
@@ -34,8 +36,6 @@ def home(request):
 def collection(request):
     context = {}
     blogs = BlogPost.objects.all().filter(public=True).order_by("-date")
-    for field in blogs:
-        field.content = format_html(clean_html(unescape(field.content[:500])))
     blog_paginator = Paginator(blogs, 6)
     page_num = request.GET.get("page")
     page_obj = blog_paginator.get_page(page_num)
@@ -63,109 +63,146 @@ def contact(request):
     context["current"] = "contact"      # This is simply for the functionality of the navigation bar
     return render(request, "contact.html", context)
 
+class Article(View):
 
-def article(request, title):
-    context = {}
-    # req = "https://disqus.com/api/3.0/threads/details.json"
-    blog = BlogPost.objects.get(title=title)
-    comment_form = CommentForm(instance=Comment(blog_post=blog, comment=""))
-    if request.method.lower() == "post":    # This will handle saving comments on the article
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid:
-            comment_form.save()
-            comment_form = CommentForm(instance=Comment(blog_post=blog, comment=""))    # This is simply to clear the comment form
-            messages.success(request, 'Comment submitted for review')
-
-    context['comment_form'] = comment_form
-
-    top_two = BlogPost.objects.exclude(title=title, public=False).order_by("-date", "likes")[:4]
-    for post in top_two:
-        post.content = format_html(clean_html(unescape(post.content[:350])))
-    if blog.public or request.user.is_staff:
-        blog.content = format_html(unescape(blog.content))
-        context["blog"] = blog
-        context["top_two"] = top_two
-        context["current"] = "collections"      # This is simply for the functionality of the navigation bar
+    def get(self, request, title):
+        try:
+            blog = get_object_or_404(BlogPost, title=title)
+            blog.content = format_html(unescape(blog.content))
+            top_three_blog = BlogPost.objects.exclude(title=title, public=False).order_by("-date", "likes")[:4]
+            comment_form = CommentForm()
+        except Exception as e:
+            raise Http404()
+        
+        context = {
+            'blog': blog,
+            'top_two': top_three_blog,
+            'comment_form': comment_form,
+            'current': 'collections'
+        }
+        
         return render(request, "article.html", context)
-    return HttpResponseNotFound("Sorry, we couldn't find the post you're searching for.")
 
 
-def author(request):
-    context = {}
-    return render(request, "author.html", context)
+class AdminArticle(View):
+
+    @method_decorator(login_required(redirect_field_name="next", login_url="/login/"))
+    def delete(self, request):
+        title = request.GET.get("title")
+        response = {
+            'ok': False,
+        }
+        try:
+            blog = BlogPost.objects.get(title=title)
+            response['ok'] = True
+            blog.delete()
+            messages.success(request, f"{blog.title} successfully deleted!")
+
+        except Exception as e:
+            # response['message'] = e
+            messages.error(request, "Error! Please refresh and try again")
+        return JsonResponse(response)
+    
+    @method_decorator(login_required(redirect_field_name="next", login_url="/login/"))
+    def get(self, request):
+        title = request.GET.get('title')
+        print('get request')
+        blog_form = self.get_post_form(title)
+
+        context = {
+            "post_form": blog_form,
+            "blog_title": title,
+            "current": "dashboard"  # This is simply for the functionality of the navigation bar
+        }
+
+        return render(request, "modify-post.html", context)
+
+    @method_decorator(login_required(redirect_field_name="next", login_url="/login/"))
+    def post(self, request):
+
+        title = request.GET.get('title')
+        blog_exists = BlogPost.objects.filter(title=title).count()
+        data = request.POST.copy()
+        data['content'] = escape(data['content'])
+        new_entry = False if blog_exists else True
+        blog_form = self.get_post_form(title, data, new_entry)
+
+        if blog_form.is_valid():
+            blog_form.save()
+        else:
+            context = {
+                "post_form": blog_form,
+                "blog_title": title,
+                "current": "dashboard" # This is simply for the functionality of the navigation bar
+            }
+
+            return render(request, "modify-post.html", context)
+        
+        return redirect('dashboard')
+    
+    def get_post_form(self, title, form_data={}, new_entry=False):
+        if not new_entry:
+            blog_instance = BlogPost.objects.get(title=title)
+            blog_instance.content = format_html(unescape(blog_instance.content))
+            # Bring up form with the right blog object as instance
+            if form_data:
+                blog_form = BlogPostForm(form_data, instance=blog_instance)
+            else: 
+                blog_form = BlogPostForm(instance=blog_instance)
+        elif form_data:
+            # Most likely we are trying to create a new entry with form_data
+            blog_form = BlogPostForm(form_data)
+        else:
+            # Then we need an empty form for creating new entry
+            blog_form = BlogPostForm()
+                
+        return blog_form
+
+
+class Comment(View):
+
+    def post(self, request, title):
+        try:
+            blog = get_object_or_404(BlogPost, title=title)
+            top_three_blog = BlogPost.objects.exclude(title=title, public=False).order_by("-date", "likes")[:4]
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment_form.save(blog=blog)
+                messages.success(request, 'Comment added')
+            else:
+                context = {
+                    'blog': blog,
+                    'top_two': top_three_blog,
+                    'comment_form': comment_form,
+                    'current': 'collections'
+                }
+                return render(request, "article.html", context)
+        except Exception as e:
+            raise Http404()
+        
+        return redirect('article', title=blog.title)
+    
+    @method_decorator(login_required(redirect_field_name="next", login_url="/login/"))
+    def delete(request, id):
+        try:
+            comment = get_object_or_404(Comment, id=id)
+            comment.delete()
+        except Exception as e:
+            messages.error(request, "Error! Please refresh and try again")
+        return redirect(request.META['HTTP_REFERER'])
+
+
+class Author(TemplateView):
+    template_name = 'author.html'
 
 
 @login_required(redirect_field_name="next", login_url="/login/")
 def dashboard(request):
     context = {}
     blogs = BlogPost.objects.all().order_by("-date")
-    for field in blogs:
-        field.content = format_html(clean_html(unescape(field.content[:500])))
     blog_paginator = Paginator(blogs, 6)
     page_num = request.GET.get("page")
     blog_obj = blog_paginator.get_page(page_num)
     context["page_obj"] = blog_obj
     context["current"] = "dashboard"      # This is simply for the functionality of the navigation bar
     return render(request, "dashboard.html", context)
-
-
-@login_required(redirect_field_name="next", login_url="/login/")
-def delete_post(request):
-    title = request.GET.get("title")
-    if title:
-        blog = BlogPost.objects.get(title=title)
-        blog.delete()
-    else:
-        messages.success(request, "Error! Please refresh and try again")
-    return redirect("dashboard")
-
-
-@login_required(redirect_field_name="next", login_url="/login/")
-def modify_post(request, action):
-    context = {}
-    blog_post = BlogPostForm()
-    blog = {}
-    if action == "modify":
-        title = request.GET.get("title")
-        blog = BlogPost.objects.get(title=title)
-        blog.content = format_html(blog.content)
-        blog_post = BlogPostForm(instance=blog)
-    
-    if request.method == "POST":
-        post_data = request.POST.copy()
-        # post_data['content'] = unescape(request.POST.get("content"))
-        if not blog:
-            blog_post = BlogPostForm(post_data)
-        else:
-            blog_post = BlogPostForm(post_data, instance=blog)
-        if blog_post.is_valid():
-            blog_post.save()
-            return redirect("dashboard")
-        else:
-            print("error")
-            print(blog_post.errors)
-    
-    context["post_form"] = blog_post
-    context["current"] = "dashboard"      # This is simply for the functionality of the navigation bar
-    return render(request, "modify-post.html", context)
-
-
-def add_comment(request, title):
-    if request.method.lower() == "post":
-        comment = CommentForm(request.POST)
-        if comment.is_valid:
-            comment.save()
-            messages.success(request, 'Comment submitted for review')
-    context = {}
-    req = "https://disqus.com/api/3.0/threads/details.json"
-    blog = BlogPost.objects.get(title=title)
-    top_two = BlogPost.objects.exclude(title=title, public=False).order_by("-date", "likes")[:4]
-    for post in top_two:
-        post.content = format_html(clean_html(unescape(post.content[:350])))
-    if blog.public or request.user.is_staff:
-        blog.content = format_html(unescape(blog.content))
-        context["blog"] = blog
-        context["top_two"] = top_two
-        context["current"] = "collections"      # This is simply for the functionality of the navigation bar
-        return render(request, "article.html", context)
-    return HttpResponseNotFound("Sorry, we couldn't find the post you're searching for.")

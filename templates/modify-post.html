@@ -12,7 +12,7 @@
 <main id="content" class="w-md-75 p-3 pt-5 mx-auto" role="main">
     <div class="row">
         <div class="col">
-            <form id="post-form" method="post">
+            <form id="post-form" method="post" action="{% url 'admin-article' %}?title={{blog_title}}">
                 {% csrf_token %}
                 <div class="form-group">
                     {% for error in post_form.title.errors %}

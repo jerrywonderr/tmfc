@@ -109,7 +109,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-if DEVELOPMENT_MODE == False:
+if DEVELOPMENT_MODE is None:
     if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
         if os.getenv("DATABASE_URL", None) is None:
             raise Exception("DATABASE_URL environment variable not defined")
@@ -158,7 +158,7 @@ if DEVELOPMENT_MODE:
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-if DEVELOPMENT_MODE == False:
+if DEVELOPMENT_MODE is None:
     #AZURE SETTINGS
     DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
     STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'

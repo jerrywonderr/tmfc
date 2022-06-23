@@ -1,4 +1,7 @@
 $(document).ready(function(){
+
+    "use strict";
+
     $(function(){
         let current = $("#main_nav").attr("data-current");
         let nav_items = $("#main_nav").find("li");
@@ -28,16 +31,42 @@ $(document).ready(function(){
     $(".suggestions").on("mouseleave", function(){
         $(this).find(".hovered-post").addClass("d-none");
     });
-    $(".suggestions").click(function(){
+    $(".suggestions").on("click", function(){
         let title = $(this).attr("data-title");
         window.location.href = (`/article/${title}`);
     });
-    $(".main-headr > a").click(function(){
-        console.log(this);
-        let ofset = $(this).attr("data-offset");
-        console.log(ofset);
-        let offset = $("#content").offset()
-        $("main").offset({top: 1, left:offset.left})
-    })
+    $(".continue-btn").on("click", function(){
+        // Just to remove the view from behind the header
+        let offset = $('main').position().top;
+        let headerHeight = $(".main-nav").outerHeight();
+        $("html, body").animate({scrollTop: offset - headerHeight}, 'slow');
+    });
+    $(() => {
+        const pageURL = location.href;
+        if (pageURL.includes('content')) {
+            // Just to remove the view from behind the header
+            let offset = $('main').position().top;
+            let headerHeight = $(".main-nav").outerHeight();
+            $("html, body").animate({scrollTop: offset - headerHeight}, 'slow');
+        }
+    });
+
+    $('.delete-btn').on('click', async (ev) => {
+        try {
+            let url = $(ev.target).attr('data-href');
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': Cookies.get('csrftoken')
+                }
+            });
+            if (response.ok) {
+                location.reload();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        
+    });
 });
 
