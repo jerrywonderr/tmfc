@@ -21,7 +21,7 @@ class BlogPost(models.Model):
 
 
 class Comment(models.Model):
-    blog_post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+    blog_post = models.ForeignKey(BlogPost, null=True, on_delete=models.CASCADE)
     comment = models.TextField(max_length=500)
     blocked = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)
