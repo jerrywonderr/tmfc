@@ -158,7 +158,7 @@ if DEVELOPMENT_MODE:
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-if DEVELOPMENT_MODE is None:
+if not DEVELOPMENT_MODE:
     #AZURE SETTINGS
     DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
     STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'

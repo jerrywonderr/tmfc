@@ -1,1 +1,2 @@
-web: gunicorn TMFC.wsgi --log-file -
+release: python3 manage.py migrate
+web: gunicorn TMFC.wsgi --preload --log-file -
