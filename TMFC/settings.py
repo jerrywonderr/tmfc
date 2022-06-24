@@ -109,7 +109,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-if DEVELOPMENT_MODE is None:
+if not DEVELOPMENT_MODE:
     if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
         if os.getenv("DATABASE_URL", None) is None:
             raise Exception("DATABASE_URL environment variable not defined")
