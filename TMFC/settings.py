@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -151,24 +152,24 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-if DEVELOPMENT_MODE:
-    STATIC_URL = '/static/'
-    MEDIA_URL = "/media/"
-    STATIC_ROOT = BASE_DIR / "static"
+STATIC_URL = '/static/'
+MEDIA_URL = "/media/"
+STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-if not DEVELOPMENT_MODE:
-    #AZURE SETTINGS
-    DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
-    STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
+# if not DEVELOPMENT_MODE:
+#     #AZURE SETTINGS
+#     DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
+#     # STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
 
-    STATIC_LOCATION = "static"
-    MEDIA_LOCATION = "media"
+#     # STATIC_LOCATION = "static"
+#     MEDIA_LOCATION = "media"
 
-    AZURE_ACCOUNT_NAME = os.environ["AZURE_ACCOUNTNAME"]
-    AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-    STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+#     AZURE_ACCOUNT_NAME = os.environ["AZURE_ACCOUNTNAME"]
+#     AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+#     # STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+#     MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 
 
