@@ -35,7 +35,7 @@ LOGIN_REDIRECT_URL = "/dashboard/"
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key()) # Instead of your actual secret key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', "True") == "True"
+DEBUG = os.getenv('DJANGO_DEBUG', "False") == "True"
 
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
