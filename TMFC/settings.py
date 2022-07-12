@@ -35,7 +35,7 @@ LOGIN_REDIRECT_URL = "/dashboard/"
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key()) # Instead of your actual secret key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', "False") == "True"
+DEBUG = os.getenv('DJANGO_DEBUG_MODE', "False") == "True"
 
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
@@ -44,6 +44,7 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(",")
 # Application definition
 
 INSTALLED_APPS = [
+    # 'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -153,13 +154,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
-STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-# if not DEVELOPMENT_MODE:
-#     #AZURE SETTINGS
-#     DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
-#     STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
+if not DEVELOPMENT_MODE:
+    #AZURE SETTINGS
+    DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
+    STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
 
-#     STATIC_LOCATION = "static"
+    STATIC_LOCATION = "static"
